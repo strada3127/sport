@@ -1,5 +1,13 @@
 Rails.application.routes.draw do
-  mount MediaSite::API => '/'
+  devise_for :users
+
+  namespace :api do
+    # localhost:3000/api/vi/authに認証api
+    # mount API::Root => '/' このぎょうは下記のGrapeの実装後に追加
+    mount_devise_token_auth_for 'User', at: '/v1/auth'
+    mount API::Root => '/'
+  end
+    #mount MediaSite::API => '/'
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
